@@ -1,0 +1,77 @@
+buildscript {
+	ext {
+		artifactId = 'deliverymoment-service'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.2.11.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'org.springframework.boot'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+targetCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "Hoxton.SR9")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	implementation 'org.springframework.cloud:spring-cloud-starter-zipkin'
+	
+	implementation "io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE"
+	
+	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+	compile group: 'commons-io', name: 'commons-io', version: '2.6'
+	compile group: 'javax.json', name: 'javax.json-api', version: '1.1.4'
+	compile group: 'org.apache.johnzon', name: 'johnzon-core', version: '1.2.6'
+	implementation "net.logstash.logback:logstash-logback-encoder:5.0"
+	compile group: 'ch.qos.logback', name: 'logback-access', version: '1.2.3'
+	runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+	
+	compile ('javax.validation:validation-api:2.0.0.Final')
+	
+	
+	//Swagger documentation dependencies
+	compile('io.springfox:springfox-bean-validators:2.9.2')
+	
+	//implementation "io.springfox:springfox-boot-starter:3.0.0"
+	//implementation "io.springfox:springfox-data-rest:3.0.0"
+	//implementation "io.springfox:springfox-bean-validators:3.0.0"
+	//compile 'io.springfox:springfox-swagger-ui:3.0.0'
+	compile('io.springfox:springfox-swagger2:2.9.2')
+	compile('io.springfox:springfox-swagger-ui:2.9.2')
+	
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+}
+
+
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+test {
+	useJUnitPlatform()
+}

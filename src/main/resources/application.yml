@@ -1,0 +1,18 @@
+management:
+  health:
+    defaults:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include:
+          '*'
+
+spring: 
+  zipkin: 
+    enabled: false
+
+referencedata.url: localhost:8082/referencedata
+deliveryMomentdata.url: localhost:8081
+    
